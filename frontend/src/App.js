@@ -44,7 +44,7 @@ const AuthProvider = ({ children }) => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
       return { success: true };
     } catch (error) {
-      return { success: false, error: error.response?.data?.detail || 'Login failed' };
+      return { success: false, error: error.response?.data?.detail || 'Giriş başarısız' };
     }
   };
 
@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
       const response = await axios.post(`${API}/register`, { username, email, password });
       return { success: true, user: response.data };
     } catch (error) {
-      return { success: false, error: error.response?.data?.detail || 'Registration failed' };
+      return { success: false, error: error.response?.data?.detail || 'Kayıt başarısız' };
     }
   };
 
@@ -116,7 +116,7 @@ const MatrixRain = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()';
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÇĞIİÖŞÜ123456789@#$%^&*()';
     const lettersArray = letters.split('');
     
     const fontSize = 10;
@@ -179,14 +179,18 @@ const FSocietyLogo = () => {
 
 const QuoteDisplay = () => {
   const quotes = [
-    "Control is an illusion.",
-    "Power belongs to the people.",
-    "The system is broken.",
-    "We are fsociety.",
-    "Hello, friend.",
-    "The world is a dangerous place.",
-    "Anonymous is not organization.",
-    "The revolution will not be televised."
+    "Kontrol bir yanılsama.",
+    "Güç halka aittir.",
+    "Sistem bozuldu.",
+    "Biz fsociety'iz.",
+    "Merhaba, dostum.",
+    "Dünya tehlikeli bir yer.",
+    "Anonim bir organizasyon değil.",
+    "Devrim televizyona çıkmayacak.",
+    "Gerçek sen olduğun kişi.",
+    "Toplum seni yargılar.",
+    "Sistem seni kontrol ediyor.",
+    "Özgürlük mücadelesi başladı."
   ];
   
   const [currentQuote, setCurrentQuote] = useState('');
@@ -241,16 +245,16 @@ const LoginForm = ({ onSuccess }) => {
   
   return (
     <form onSubmit={handleSubmit} className="login-form">
-      <GlitchText className="form-title">ACCESS TERMINAL</GlitchText>
+      <GlitchText className="form-title">GİRİŞ TERMİNALİ</GlitchText>
       
       <TerminalInput
-        placeholder="Enter username"
+        placeholder="Kullanıcı adı girin"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       
       <TerminalInput
-        placeholder="Enter password"
+        placeholder="Şifre girin"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         type="password"
@@ -259,7 +263,7 @@ const LoginForm = ({ onSuccess }) => {
       {error && <div className="error-message">{error}</div>}
       
       <button type="submit" disabled={loading} className="terminal-button">
-        {loading ? 'AUTHENTICATING...' : 'LOGIN'}
+        {loading ? 'KİMLİK DOĞRULANIYOR...' : 'GİRİŞ YAP'}
       </button>
     </form>
   );
@@ -291,23 +295,23 @@ const RegisterForm = ({ onSuccess }) => {
   
   return (
     <form onSubmit={handleSubmit} className="register-form">
-      <GlitchText className="form-title">JOIN THE REVOLUTION</GlitchText>
+      <GlitchText className="form-title">DEVRIME KATIL</GlitchText>
       
       <TerminalInput
-        placeholder="Enter username"
+        placeholder="Kullanıcı adı girin"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       
       <TerminalInput
-        placeholder="Enter email"
+        placeholder="Email girin"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         type="email"
       />
       
       <TerminalInput
-        placeholder="Enter password"
+        placeholder="Şifre girin"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         type="password"
@@ -316,13 +320,23 @@ const RegisterForm = ({ onSuccess }) => {
       {error && <div className="error-message">{error}</div>}
       
       <button type="submit" disabled={loading} className="terminal-button">
-        {loading ? 'REGISTERING...' : 'REGISTER'}
+        {loading ? 'KAYIT EDİLİYOR...' : 'KAYIT OL'}
       </button>
     </form>
   );
 };
 
 const ForumPost = ({ post, onCommentClick }) => {
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('tr-TR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   return (
     <div className="forum-post">
       <div className="post-header">
@@ -330,13 +344,13 @@ const ForumPost = ({ post, onCommentClick }) => {
           <img src={post.author_avatar || "https://images.unsplash.com/photo-1616582607004-eba71ce01e07?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxtYXNrZWQlMjBwb3J0cmFpdHxlbnwwfHx8YmxhY2tfYW5kX3doaXRlfDE3NTIyNDQ2MDl8MA&ixlib=rb-4.1.0&q=85"} alt="avatar" className="avatar" />
           <span className="username">{post.author_username}</span>
         </div>
-        <div className="post-date">{new Date(post.created_at).toLocaleDateString()}</div>
+        <div className="post-date">{formatDate(post.created_at)}</div>
       </div>
       <h3 className="post-title">{post.title}</h3>
       <div className="post-content">{post.content}</div>
       <div className="post-actions">
         <button onClick={() => onCommentClick(post)} className="comment-button">
-          View Comments
+          Yorumları Görüntüle
         </button>
       </div>
     </div>
@@ -390,9 +404,9 @@ const Dashboard = () => {
           <div className="user-info">
             <img src={user?.avatar} alt="avatar" className="user-avatar" />
             <span className="username">{user?.username}</span>
-            {user?.is_admin && <span className="admin-badge">ADMIN</span>}
+            {user?.is_admin && <span className="admin-badge">ADMİN</span>}
           </div>
-          <button onClick={logout} className="logout-button">LOGOUT</button>
+          <button onClick={logout} className="logout-button">ÇIKIŞ YAP</button>
         </div>
       </header>
       
@@ -402,33 +416,33 @@ const Dashboard = () => {
             onClick={() => setShowCreatePost(!showCreatePost)} 
             className="create-post-button"
           >
-            <GlitchText>Yeni Form Gönder</GlitchText>
+            <GlitchText>Yeni Gönderi Oluştur</GlitchText>
           </button>
           
           <button 
             onClick={() => setShowRegister(!showRegister)} 
             className="register-button"
           >
-            New User Registration
+            Yeni Kullanıcı Kaydı
           </button>
         </div>
         
         {showCreatePost && (
           <form onSubmit={handleCreatePost} className="create-post-form">
             <TerminalInput
-              placeholder="Post title"
+              placeholder="Gönderi başlığı"
               value={newPost.title}
               onChange={(e) => setNewPost({...newPost, title: e.target.value})}
             />
             <textarea
-              placeholder="Post content..."
+              placeholder="Gönderi içeriği..."
               value={newPost.content}
               onChange={(e) => setNewPost({...newPost, content: e.target.value})}
               className="post-content-textarea"
               rows="4"
             />
             <button type="submit" disabled={loading} className="terminal-button">
-              {loading ? 'POSTING...' : 'SUBMIT POST'}
+              {loading ? 'GÖNDERİLİYOR...' : 'GÖNDERİYİ PAYLAŞ'}
             </button>
           </form>
         )}
@@ -438,13 +452,20 @@ const Dashboard = () => {
         )}
         
         <div className="posts-container">
-          {posts.map(post => (
-            <ForumPost 
-              key={post.id} 
-              post={post} 
-              onCommentClick={() => {}} 
-            />
-          ))}
+          {posts.length === 0 ? (
+            <div className="no-posts">
+              <GlitchText>Henüz hiç gönderi yok...</GlitchText>
+              <p>İlk gönderiyi sen oluştur!</p>
+            </div>
+          ) : (
+            posts.map(post => (
+              <ForumPost 
+                key={post.id} 
+                post={post} 
+                onCommentClick={() => {}} 
+              />
+            ))
+          )}
         </div>
       </main>
     </div>
@@ -459,7 +480,7 @@ const App = () => {
     return (
       <div className="loading-screen">
         <div className="loading-terminal">
-          <div className="loading-text">Initializing fsociety terminal...</div>
+          <div className="loading-text">fsociety terminali başlatılıyor...</div>
           <div className="loading-cursor">|</div>
         </div>
       </div>
@@ -480,13 +501,13 @@ const App = () => {
               className={currentView === 'login' ? 'active' : ''} 
               onClick={() => setCurrentView('login')}
             >
-              LOGIN
+              GİRİŞ
             </button>
             <button 
               className={currentView === 'register' ? 'active' : ''} 
               onClick={() => setCurrentView('register')}
             >
-              REGISTER
+              KAYIT
             </button>
           </div>
           
