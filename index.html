@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fsociety - Yeraltı Forumu</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Matrix Rain Canvas -->
+        <canvas id="matrix-canvas" class="matrix-canvas"></canvas>
+        
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-terminal">
+                <div class="loading-text">fsociety terminali başlatılıyor...</div>
+                <div class="loading-cursor">|</div>
+            </div>
+        </div>
+
+        <!-- Login/Register Screen -->
+        <div id="auth-screen" class="auth-screen">
+            <div class="main-content">
+                <div class="auth-container">
+                    <div class="auth-tabs">
+                        <button id="login-tab" class="auth-tab active">GİRİŞ</button>
+                        <button id="register-tab" class="auth-tab">KAYIT</button>
+                    </div>
+                    
+                    <!-- Login Form -->
+                    <form id="login-form" class="auth-form">
+                        <div class="glitch-text form-title" data-text="GİRİŞ TERMİNALİ">GİRİŞ TERMİNALİ</div>
+                        
+                        <div class="terminal-input">
+                            <span class="terminal-prompt">root@fsociety:~$ </span>
+                            <input id="login-username" type="text" placeholder="Kullanıcı adı girin" class="terminal-field">
+                            <span class="terminal-cursor">|</span>
+                        </div>
+                        
+                        <div class="terminal-input">
+                            <span class="terminal-prompt">root@fsociety:~$ </span>
+                            <input id="login-password" type="password" placeholder="Şifre girin" class="terminal-field">
+                            <span class="terminal-cursor">|</span>
+                        </div>
+                        
+                        <div id="login-error" class="error-message" style="display: none;"></div>
+                        
+                        <button type="submit" class="terminal-button">GİRİŞ YAP</button>
+                    </form>
+                    
+                    <!-- Register Form -->
+                    <form id="register-form" class="auth-form" style="display: none;">
+                        <div class="glitch-text form-title" data-text="DEVRIME KATIL">DEVRIME KATIL</div>
+                        
+                        <div class="terminal-input">
+                            <span class="terminal-prompt">root@fsociety:~$ </span>
+                            <input id="register-username" type="text" placeholder="Kullanıcı adı girin" class="terminal-field">
+                            <span class="terminal-cursor">|</span>
+                        </div>
+                        
+                        <div class="terminal-input">
+                            <span class="terminal-prompt">root@fsociety:~$ </span>
+                            <input id="register-email" type="email" placeholder="Email girin" class="terminal-field">
+                            <span class="terminal-cursor">|</span>
+                        </div>
+                        
+                        <div class="terminal-input">
+                            <span class="terminal-prompt">root@fsociety:~$ </span>
+                            <input id="register-password" type="password" placeholder="Şifre girin" class="terminal-field">
+                            <span class="terminal-cursor">|</span>
+                        </div>
+                        
+                        <div id="register-error" class="error-message" style="display: none;"></div>
+                        
+                        <button type="submit" class="terminal-button">KAYIT OL</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="dashboard" style="display: none;">
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <div class="fsociety-logo">
+                        <div class="logo-char">f</div>
+                        <div class="logo-char">s</div>
+                        <div class="logo-char">o</div>
+                        <div class="logo-char">c</div>
+                        <div class="logo-char">i</div>
+                        <div class="logo-char">e</div>
+                        <div class="logo-char">t</div>
+                        <div class="logo-char">y</div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <img id="user-avatar" alt="avatar" class="user-avatar">
+                        <span id="user-name" class="username"></span>
+                        <span id="admin-badge" class="admin-badge" style="display: none;">ADMİN</span>
+                    </div>
+                    <button id="logout-btn" class="logout-button">ÇIKIŞ YAP</button>
+                </div>
+            </header>
+            
+            <main class="dashboard-main">
+                <div class="controls">
+                    <button id="create-post-btn" class="create-post-button">
+                        <div class="glitch-text" data-text="Yeni Gönderi Oluştur">Yeni Gönderi Oluştur</div>
+                    </button>
+                    
+                    <button id="new-user-btn" class="register-button">
+                        Yeni Kullanıcı Kaydı
+                    </button>
+                </div>
+                
+                <!-- Create Post Form -->
+                <form id="create-post-form" class="create-post-form" style="display: none;">
+                    <div class="terminal-input">
+                        <span class="terminal-prompt">root@fsociety:~$ </span>
+                        <input id="post-title" type="text" placeholder="Gönderi başlığı" class="terminal-field">
+                    </div>
+                    
+                    <textarea id="post-content" placeholder="Gönderi içeriği..." class="post-content-textarea" rows="4"></textarea>
+                    
+                    <button type="submit" class="terminal-button">GÖNDERİYİ PAYLAŞ</button>
+                </form>
+                
+                <!-- New User Registration Form -->
+                <form id="new-user-form" class="create-post-form" style="display: none;">
+                    <div class="glitch-text form-title" data-text="YENİ KULLANICI KAYDI">YENİ KULLANICI KAYDI</div>
+                    
+                    <div class="terminal-input">
+                        <span class="terminal-prompt">root@fsociety:~$ </span>
+                        <input id="new-username" type="text" placeholder="Kullanıcı adı girin" class="terminal-field">
+                    </div>
+                    
+                    <div class="terminal-input">
+                        <span class="terminal-prompt">root@fsociety:~$ </span>
+                        <input id="new-email" type="email" placeholder="Email girin" class="terminal-field">
+                    </div>
+                    
+                    <div class="terminal-input">
+                        <span class="terminal-prompt">root@fsociety:~$ </span>
+                        <input id="new-password" type="password" placeholder="Şifre girin" class="terminal-field">
+                    </div>
+                    
+                    <button type="submit" class="terminal-button">KULLANICI OLUŞTUR</button>
+                </form>
+                
+                <!-- Posts Container -->
+                <div id="posts-container" class="posts-container">
+                    <div class="no-posts">
+                        <div class="glitch-text" data-text="Henüz hiç gönderi yok...">Henüz hiç gönderi yok...</div>
+                        <p>İlk gönderiyi sen oluştur!</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Quote Display -->
+        <div id="quote-display" class="quote-display"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

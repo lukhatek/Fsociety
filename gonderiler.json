@@ -1,0 +1,12 @@
+[
+  {
+    "id": "post-1",
+    "title": "Hoş geldiniz fsociety'ye!",
+    "content": "Bu forum Mr. Robot evreninden ilham alınarak oluşturuldu. Burada devrimsel fikirlerinizi paylaşabilir, sistem hakkında düşüncelerinizi dile getirebilirsiniz. Unutmayın, güç halka aittir.",
+    "authorId": "admin-1",
+    "authorUsername": "Lukha",
+    "authorAvatar": "https://images.unsplash.com/photo-1616582607004-eba71ce01e07?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxtYXNrZWQlMjBwb3J0cmFpdHxlbnwwfHx8YmxhY2tfYW5kX3doaXRlfDE3NTIyNDQ2MDl8MA&ixlib=rb-4.1.0&q=85",
+    "createdAt": "2025-01-11T15:00:00.000Z",
+    "comments": []
+  }
+]
