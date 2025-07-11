@@ -178,7 +178,7 @@ async def create_post(post_data: PostCreate, current_user: UserResponse = Depend
 async def get_post(post_id: str):
     post = await db.posts.find_one({"id": post_id})
     if not post:
-        raise HTTPException(status_code=404, detail="Post not found")
+        raise HTTPException(status_code=404, detail="Gönderi bulunamadı")
     
     return Post(**post)
 
