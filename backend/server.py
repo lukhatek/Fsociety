@@ -122,7 +122,7 @@ async def register(user_data: UserCreate):
     # Check if user exists
     existing_user = await db.users.find_one({"$or": [{"username": user_data.username}, {"email": user_data.email}]})
     if existing_user:
-        raise HTTPException(status_code=400, detail="Username or email already exists")
+        raise HTTPException(status_code=400, detail="Kullanıcı adı veya email zaten mevcut")
     
     # Create user
     user_dict = user_data.dict()
