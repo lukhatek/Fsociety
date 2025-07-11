@@ -115,7 +115,7 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
 # Routes
 @api_router.get("/")
 async def root():
-    return {"message": "Welcome to fsociety underground"}
+    return {"message": "fsociety yeraltı dünyasına hoş geldiniz"}
 
 @api_router.post("/register", response_model=UserResponse)
 async def register(user_data: UserCreate):
