@@ -143,11 +143,11 @@ async def login(user_data: UserLogin):
     # Find user
     user = await db.users.find_one({"username": user_data.username})
     if not user:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
+        raise HTTPException(status_code=401, detail="Geçersiz kullanıcı bilgileri")
     
     # Verify password
     if not verify_password(user_data.password, user["password_hash"]):
-        raise HTTPException(status_code=401, detail="Invalid credentials")
+        raise HTTPException(status_code=401, detail="Geçersiz kullanıcı bilgileri")
     
     # Create token
     access_token = create_access_token({"sub": user["username"]})
